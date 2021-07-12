@@ -728,11 +728,23 @@ class IntroSliderState extends State<IntroSlider>
     final listView = ListView(
       controller: scrollController,
       children: <Widget>[
+        // Image or Center widget
         Container(
-          // Title
           margin: marginTitle ??
               const EdgeInsets.only(
                   top: 70.0, bottom: 50.0, left: 20.0, right: 20.0),
+          // onTap: onCenterItemPress,
+          child: pathImage != null
+              ? Image.asset(
+                  pathImage,
+                  width: widthImage ?? 200.0,
+                  height: heightImage ?? 200.0,
+                  fit: foregroundImageFit ?? BoxFit.contain,
+                )
+              : Center(child: centerWidget ?? Container()),
+        ),
+        Container(
+          // Title
           child: widgetTitle ??
               Text(
                 title ?? '',
@@ -747,20 +759,6 @@ class IntroSliderState extends State<IntroSlider>
                 overflow: TextOverflow.ellipsis,
               ),
         ),
-
-        // Image or Center widget
-        GestureDetector(
-          onTap: onCenterItemPress,
-          child: pathImage != null
-              ? Image.asset(
-                  pathImage,
-                  width: widthImage ?? 200.0,
-                  height: heightImage ?? 200.0,
-                  fit: foregroundImageFit ?? BoxFit.contain,
-                )
-              : Center(child: centerWidget ?? Container()),
-        ),
-
         // Description
         Container(
           margin: marginDescription ??
