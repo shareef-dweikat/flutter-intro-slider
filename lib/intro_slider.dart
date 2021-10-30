@@ -795,8 +795,8 @@ class IntroSliderState extends State<IntroSlider>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlatButton(
+                  padding: EdgeInsets.zero,
                   onPressed: () => onDonePress!(),
-                  // color: Theme.of(context).scaffoldBackgroundColor,
                   child: Text(
                     btnTitle,
                     style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
