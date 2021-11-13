@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -729,56 +730,58 @@ class IntroSliderState extends State<IntroSlider>
     Color? backgroundOpacityColor,
     BlendMode? backgroundBlendMode,
   ) {
-    final listView = ListView(
-      controller: scrollController,
+    final listView = Column (
+      // controller: scrollController,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         // Image or Center widget
         Container(
           margin: marginTitle ??
               const EdgeInsets.only(
-                  top: 70.0, bottom: 50.0, left: 20.0, right: 20.0),
+                   left: 20.0, right: 20.0),
           // onTap: onCenterItemPress,
           child: pathImage != null
               ? Image.asset(
                   pathImage,
-                  width: widthImage ?? 200.0,
-                  height: heightImage ?? 200.0,
                   fit: foregroundImageFit ?? BoxFit.contain,
                 )
               : Center(child: centerWidget ?? Container()),
         ),
-        Container(
-          // Title
-          child: widgetTitle ??
-              Text(
-                title ?? '',
-                style: styleTitle ??
-                    const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                    ),
-                maxLines: maxLineTitle ?? 1,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-              ),
-        ),
         // Description
-        Container(
-          margin: marginDescription ??
-              const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-          child: widgetDescription ??
-              Text(
-                description ?? '',
-                style: styleDescription ??
-                    const TextStyle(color: Colors.white, fontSize: 18.0),
-                textAlign: TextAlign.center,
-                maxLines: maxLineTextDescription ?? 100,
-                overflow: TextOverflow.ellipsis,
-              ),
+        Column(
+          children: [
+            Container(
+              // Title
+              child: widgetTitle ??
+                  Text(
+                    title ?? '',
+                    style: styleTitle ??
+                        const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        ),
+                    maxLines: maxLineTitle ?? 1,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            ),
+            Container(
+              margin: marginDescription ??
+                  const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+              child: widgetDescription ??
+                  Text(
+                    description ?? '',
+                    style: styleDescription ??
+                        const TextStyle(color: Colors.white, fontSize: 18.0),
+                    textAlign: TextAlign.center,
+                    maxLines: maxLineTextDescription ?? 100,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+            ),
+           ],
         ),
         Container(
-            margin: const EdgeInsets.fromLTRB(150.0, 50.0, 150.0, 100.0),
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
               border: Border(
@@ -788,23 +791,22 @@ class IntroSliderState extends State<IntroSlider>
                 bottom: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
               ),
             ),
-            width: 140.0,
-            height: 50.0,
+            padding: EdgeInsets.symmetric(vertical: 0.0.h, horizontal: 4.0.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlatButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () => onDonePress!(),
-                  child: Text(
-                    btnTitle,
-                    style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
+                    padding: EdgeInsets.zero,
+                    onPressed: () => onDonePress!(),
+                    child: Text(
+                      btnTitle,
+                      style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
                 ),
-
               ],
             )
         )
+
       ],
     );
     return Container(
