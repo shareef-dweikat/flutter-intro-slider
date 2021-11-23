@@ -44,7 +44,7 @@ class Slide {
   // Description
   /// Change text description at bottom
   String? description;
-
+  String? btnTitle;
   /// Maximum line of text description
   int? maxLineTextDescription;
 
@@ -101,7 +101,7 @@ class Slide {
     this.maxLineTextDescription,
     this.styleDescription,
     this.marginDescription,
-
+    this.btnTitle,
     // Background color
     this.backgroundColor,
     this.colorBegin,
