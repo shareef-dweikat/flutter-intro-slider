@@ -730,84 +730,94 @@ class IntroSliderState extends State<IntroSlider>
     Color? backgroundOpacityColor,
     BlendMode? backgroundBlendMode,
   ) {
-    final listView = Column (
-      // controller: scrollController,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        // Image or Center widget
-        Container(
-          margin: marginTitle ??
-              const EdgeInsets.only(
-                   left: 20.0, right: 20.0),
-          // onTap: onCenterItemPress,
-          child: pathImage != null
-              ? Image.asset(
-                  pathImage,
-                  fit: foregroundImageFit ?? BoxFit.contain,
-                )
-              : Center(child: centerWidget ?? Container()),
-        ),
-        // Description
-        Column(
-          children: [
-            Container(
-              // Title
-              child: widgetTitle ??
-                  Text(
-                    title ?? '',
-                    style: styleTitle ??
-                        const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.0,
+    final listView = ListView.custom (
+      controller: scrollController,
+      childrenDelegate: SliverChildBuilderDelegate(
+              (context, index) {
+            return Container(
+              height: MediaQuery.of(context).size.height - 60.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Image or Center widget
+                  Container(
+                    margin: marginTitle ??
+                        const EdgeInsets.only(
+                            left: 20.0, right: 20.0),
+                    // onTap: onCenterItemPress,
+                    child: pathImage != null
+                        ? Image.asset(
+                      pathImage,
+                      fit: foregroundImageFit ?? BoxFit.contain,
+                    )
+                        : Center(child: centerWidget ?? Container()),
+                  ),
+                  // Description
+                  Column(
+                    children: [
+                      Container(
+                        // Title
+                        child: widgetTitle ??
+                            Text(
+                              title ?? '',
+                              style: styleTitle ??
+                                  const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0,
+                                  ),
+                              maxLines: maxLineTitle ?? 1,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ),
+                      Container(
+                        margin: marginDescription ??
+                            const EdgeInsets.fromLTRB(60.0, 10.0, 60.0, 0.0),
+                        child: widgetDescription ??
+                            Text(
+                              description ?? '',
+                              style: styleDescription ??
+                                  const TextStyle(color: Colors.white, fontSize: 18.0),
+                              textAlign: TextAlign.center,
+                              maxLines: maxLineTextDescription ?? 100,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        border: Border(
+                          top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          left: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          right: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
+                          bottom: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
                         ),
-                    maxLines: maxLineTitle ?? 1,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-            ),
-            Container(
-              margin: marginDescription ??
-                  const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-              child: widgetDescription ??
-                  Text(
-                    description ?? '',
-                    style: styleDescription ??
-                        const TextStyle(color: Colors.white, fontSize: 18.0),
-                    textAlign: TextAlign.center,
-                    maxLines: maxLineTextDescription ?? 100,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-            ),
-           ],
-        ),
-        Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4.0)),
-              border: Border(
-                top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                left: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                right: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
-                bottom: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
-              ),
-            ),
-            padding: EdgeInsets.symmetric(vertical: 0.0.h, horizontal: 4.0.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FlatButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () => onDonePress!(),
-                    child: Text(
-                      btnTitle,
-                      style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
-                ),
-              ],
-            )
-        )
-
-      ],
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 0.0.h, horizontal: 4.0.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FlatButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () => onDonePress!(),
+                              child: Text(
+                                btnTitle,
+                                style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
+                          ),
+                        ],
+                      )
+                  )
+                ],
+              )
+            );
+          },
+          childCount: 1,
+      ),
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
     );
     return Container(
       width: double.infinity,
@@ -840,21 +850,7 @@ class IntroSliderState extends State<IntroSlider>
             ),
       child: Container(
         margin: const EdgeInsets.only(bottom: 60.0),
-        child: verticalScrollbarBehavior != scrollbarBehavior.HIDE
-            ? Platform.isIOS
-                ? CupertinoScrollbar(
-                    controller: scrollController,
-                    isAlwaysShown: verticalScrollbarBehavior ==
-                        scrollbarBehavior.SHOW_ALWAYS,
-                    child: listView,
-                  )
-                : Scrollbar(
-                    controller: scrollController,
-                    isAlwaysShown: verticalScrollbarBehavior ==
-                        scrollbarBehavior.SHOW_ALWAYS,
-                    child: listView,
-                  )
-            : listView,
+        child: listView,
       ),
     );
   }
