@@ -803,7 +803,13 @@ class IntroSliderState extends State<IntroSlider>
                         children: [
                           FlatButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () => onDonePress!(),
+                              onPressed: () {
+                                //this line takes user to home screen (send screen) when Start Here button is clicked
+                                if(btnTitle == 'Start Here') onDonePress!();
+                                if (!isAnimating()) {
+                                  tabController.animateTo(tabController.index + 1);
+                                }
+                              },
                               child: Text(
                                 btnTitle,
                                 style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
