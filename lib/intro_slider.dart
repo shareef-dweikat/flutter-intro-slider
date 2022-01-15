@@ -783,7 +783,7 @@ class IntroSliderState extends State<IntroSlider>
                                     color: Colors.white,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
-                                    // fontFamily: 'MontserratExtraBold'
+                                    fontFamily: 'Montserrat'
                                 ),
                               textAlign: TextAlign.center,
                               maxLines: maxLineTextDescription ?? 100,
