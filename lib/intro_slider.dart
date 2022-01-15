@@ -778,7 +778,7 @@ class IntroSliderState extends State<IntroSlider>
                             Text(
                               description ?? '',
                               style: styleDescription ??
-                                  const TextStyle(color: Colors.white, fontSize: 18.0, FontWeight.w400),
+                                  const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w400),
                               textAlign: TextAlign.center,
                               maxLines: maxLineTextDescription ?? 100,
                               overflow: TextOverflow.ellipsis,
