@@ -10,9 +10,3 @@ dependencies:
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.12.0"
-
-  flutter:
-  fonts:
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
