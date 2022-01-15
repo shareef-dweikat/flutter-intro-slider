@@ -813,7 +813,7 @@ class IntroSliderState extends State<IntroSlider>
                               onPressed: () {
                                 //this line takes user to home screen (send screen) when Start Here button is clicked
                                 if (btnTitle == 'Start Here') onDonePress!();
-                                if (!isAnimating()) {
+                                if (!isAnimating() && btnTitle != 'Start Here') {
                                   tabController
                                       .animateTo(tabController.index + 1);
                                 }
