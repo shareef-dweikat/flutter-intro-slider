@@ -765,6 +765,7 @@ class IntroSliderState extends State<IntroSlider>
                                     color: Colors.white,
                                     fontWeight: FontWeight.w900,
                                     fontSize: 30.0,
+                                    fontFamily: 'MontserratExtraBold'
                                   ),
                               maxLines: maxLineTitle ?? 1,
                               textAlign: TextAlign.center,
@@ -778,7 +779,12 @@ class IntroSliderState extends State<IntroSlider>
                             Text(
                               description ?? '',
                               style: styleDescription ??
-                                  const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w400),
+                                  const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    // fontFamily: 'MontserratExtraBold'
+                                ),
                               textAlign: TextAlign.center,
                               maxLines: maxLineTextDescription ?? 100,
                               overflow: TextOverflow.ellipsis,
