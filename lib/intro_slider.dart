@@ -730,11 +730,11 @@ class IntroSliderState extends State<IntroSlider>
     Color? backgroundOpacityColor,
     BlendMode? backgroundBlendMode,
   ) {
-    final listView = ListView.custom (
+    final listView = ListView.custom(
       controller: scrollController,
       childrenDelegate: SliverChildBuilderDelegate(
-              (context, index) {
-            return Container(
+        (context, index) {
+          return Container(
               height: MediaQuery.of(context).size.height - 60.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -742,14 +742,13 @@ class IntroSliderState extends State<IntroSlider>
                   // Image or Center widget
                   Container(
                     margin: marginTitle ??
-                        const EdgeInsets.only(
-                            left: 20.0, right: 20.0),
+                        const EdgeInsets.only(left: 20.0, right: 20.0),
                     // onTap: onCenterItemPress,
                     child: pathImage != null
                         ? Image.asset(
-                      pathImage,
-                      fit: foregroundImageFit ?? BoxFit.contain,
-                    )
+                            pathImage,
+                            fit: foregroundImageFit ?? BoxFit.contain,
+                          )
                         : Center(child: centerWidget ?? Container()),
                   ),
                   // Description
@@ -762,11 +761,10 @@ class IntroSliderState extends State<IntroSlider>
                               title ?? '',
                               style: styleTitle ??
                                   const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 30.0,
-                                    fontFamily: 'MontserratExtraBold'
-                                  ),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 30.0,
+                                      fontFamily: 'MontserratExtraBold'),
                               maxLines: maxLineTitle ?? 1,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
@@ -780,11 +778,10 @@ class IntroSliderState extends State<IntroSlider>
                               description ?? '',
                               style: styleDescription ??
                                   const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Montserrat'
-                                ),
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Montserrat'),
                               textAlign: TextAlign.center,
                               maxLines: maxLineTextDescription ?? 100,
                               overflow: TextOverflow.ellipsis,
@@ -797,12 +794,16 @@ class IntroSliderState extends State<IntroSlider>
                         borderRadius: BorderRadius.all(Radius.circular(4.0)),
                         border: Border(
                           top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                          left: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                          right: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
-                          bottom: BorderSide(width: 1.0, color:  Color(0xFFFDFAFA)),
+                          left:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          right:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          bottom:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 0.0.h, horizontal: 4.0.w),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 0.0.h, horizontal: 4.0.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -811,23 +812,23 @@ class IntroSliderState extends State<IntroSlider>
                               padding: EdgeInsets.zero,
                               onPressed: () {
                                 //this line takes user to home screen (send screen) when Start Here button is clicked
-                                if(btnTitle == 'Start Here') onDonePress!();
+                                if (btnTitle == 'Start Here') onDonePress!();
                                 if (!isAnimating()) {
-                                  tabController.animateTo(tabController.index + 1);
+                                  tabController
+                                      .animateTo(tabController.index + 1);
                                 }
                               },
                               child: Text(
                                 btnTitle,
-                                style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)
-                          ),
+                                style: TextStyle(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              )),
                         ],
-                      )
-                  )
+                      ))
                 ],
-              )
-            );
-          },
-          childCount: 1,
+              ));
+        },
+        childCount: 1,
       ),
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
     );
@@ -884,14 +885,14 @@ class IntroSliderState extends State<IntroSlider>
         opacity: opacity,
         child: Container(
           decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(radius / 2),
-              border: Border(
-                top: BorderSide(width: 1.0, color: Colors.white),
-                left: BorderSide(width: 1.0, color:  Colors.white),
-                right: BorderSide(width: 1.0, color:  Colors.white),
-                bottom: BorderSide(width: 1.0, color:  Colors.white),
-              ),
+            color: color,
+            borderRadius: BorderRadius.circular(radius / 2),
+            border: Border(
+              top: BorderSide(width: 1.0, color: Colors.white),
+              left: BorderSide(width: 1.0, color: Colors.white),
+              right: BorderSide(width: 1.0, color: Colors.white),
+              bottom: BorderSide(width: 1.0, color: Colors.white),
+            ),
           ),
           width: radius,
           height: radius,

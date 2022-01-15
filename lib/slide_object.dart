@@ -45,6 +45,7 @@ class Slide {
   /// Change text description at bottom
   String? description;
   String? btnTitle;
+
   /// Maximum line of text description
   int? maxLineTextDescription;
 
