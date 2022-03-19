@@ -350,9 +350,9 @@ class IntroSliderState extends State<IntroSlider>
             }
 
             var diffValueAnimation =
-                (tabController.animation!.value - currentAnimationValue).abs();
+            (tabController.animation!.value - currentAnimationValue).abs();
             final diffValueIndex =
-                (currentTabIndex - tabController.index).abs();
+            (currentTabIndex - tabController.index).abs();
 
             // When press skip button
             if (tabController.indexIsChanging &&
@@ -418,7 +418,7 @@ class IntroSliderState extends State<IntroSlider>
   void setupButtonDefaultValues() {
     // Skip button
     onSkipPress = widget.onSkipPress ??
-        () {
+            () {
           if (!isAnimating()) {
             if (lengthSlide > 0) {
               tabController.animateTo(lengthSlide - 1);
@@ -595,40 +595,40 @@ class IntroSliderState extends State<IntroSlider>
           Flexible(
             child: showDotIndicator
                 ? Stack(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(bottom: 35.0.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: renderListDots(),
-                        ),
-                      ),
-                      if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT)
-                        Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: colorActiveDot,
-                                borderRadius:
-                                    BorderRadius.circular(sizeDot / 2)),
-                            width: sizeDot,
-                            height: sizeDot,
-                            margin: EdgeInsets.only(
-                                left: isRTLLanguage(
-                                        Localizations.localeOf(context)
-                                            .languageCode)
-                                    ? marginRightDotFocused
-                                    : marginLeftDotFocused,
-                                right: isRTLLanguage(
-                                        Localizations.localeOf(context)
-                                            .languageCode)
-                                    ? marginLeftDotFocused
-                                    : marginRightDotFocused),
-                          ),
-                        )
-                      else
-                        Container()
-                    ],
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(bottom: 35.0.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: renderListDots(),
+                  ),
+                ),
+                if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT)
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: colorActiveDot,
+                          borderRadius:
+                          BorderRadius.circular(sizeDot / 2)),
+                      width: sizeDot,
+                      height: sizeDot,
+                      margin: EdgeInsets.only(
+                          left: isRTLLanguage(
+                              Localizations.localeOf(context)
+                                  .languageCode)
+                              ? marginRightDotFocused
+                              : marginLeftDotFocused,
+                          right: isRTLLanguage(
+                              Localizations.localeOf(context)
+                                  .languageCode)
+                              ? marginLeftDotFocused
+                              : marginRightDotFocused),
+                    ),
                   )
+                else
+                  Container()
+              ],
+            )
                 : Container(),
           ),
           // Next, Done button
@@ -638,11 +638,11 @@ class IntroSliderState extends State<IntroSlider>
             height: 50,
             child: tabController.index + 1 == lengthSlide
                 ? showDoneBtn
-                    ? buildDoneButton()
-                    : Container()
+                ? buildDoneButton()
+                : Container()
                 : showNextBtn
-                    ? buildNextButton()
-                    : Container(),
+                ? buildNextButton()
+                : Container(),
           ),
         ],
       ),
@@ -690,50 +690,50 @@ class IntroSliderState extends State<IntroSlider>
   }
 
   Widget renderTab(
-    ScrollController scrollController,
+      ScrollController scrollController,
 
-    // Title
-    Widget? widgetTitle,
-    String? title,
-    int? maxLineTitle,
-    TextStyle? styleTitle,
-    EdgeInsets? marginTitle,
+      // Title
+      Widget? widgetTitle,
+      String? title,
+      int? maxLineTitle,
+      TextStyle? styleTitle,
+      EdgeInsets? marginTitle,
 
-    // Description
-    Widget? widgetDescription,
-    String? description,
-    int? maxLineTextDescription,
-    TextStyle? styleDescription,
-    EdgeInsets? marginDescription,
-    btnTitle,
-    // Image
-    String? pathImage,
-    double? widthImage,
-    double? heightImage,
-    BoxFit? foregroundImageFit,
+      // Description
+      Widget? widgetDescription,
+      String? description,
+      int? maxLineTextDescription,
+      TextStyle? styleDescription,
+      EdgeInsets? marginDescription,
+      btnTitle,
+      // Image
+      String? pathImage,
+      double? widthImage,
+      double? heightImage,
+      BoxFit? foregroundImageFit,
 
-    // Center Widget
-    Widget? centerWidget,
-    void Function()? onCenterItemPress,
+      // Center Widget
+      Widget? centerWidget,
+      void Function()? onCenterItemPress,
 
-    // Background color
-    Color? backgroundColor,
-    Color? colorBegin,
-    Color? colorEnd,
-    AlignmentGeometry? directionColorBegin,
-    AlignmentGeometry? directionColorEnd,
+      // Background color
+      Color? backgroundColor,
+      Color? colorBegin,
+      Color? colorEnd,
+      AlignmentGeometry? directionColorBegin,
+      AlignmentGeometry? directionColorEnd,
 
-    // Background image
-    String? backgroundImage,
-    BoxFit? backgroundImageFit,
-    double? backgroundOpacity,
-    Color? backgroundOpacityColor,
-    BlendMode? backgroundBlendMode,
-  ) {
+      // Background image
+      String? backgroundImage,
+      BoxFit? backgroundImageFit,
+      double? backgroundOpacity,
+      Color? backgroundOpacityColor,
+      BlendMode? backgroundBlendMode,
+      ) {
     final listView = ListView.custom(
       controller: scrollController,
       childrenDelegate: SliverChildBuilderDelegate(
-        (context, index) {
+            (context, index) {
           return Container(
               height: MediaQuery.of(context).size.height - 60.0,
               child: Column(
@@ -746,9 +746,9 @@ class IntroSliderState extends State<IntroSlider>
                     // onTap: onCenterItemPress,
                     child: pathImage != null
                         ? Image.asset(
-                            pathImage,
-                            fit: foregroundImageFit ?? BoxFit.contain,
-                          )
+                      pathImage,
+                      fit: foregroundImageFit ?? BoxFit.contain,
+                    )
                         : Center(child: centerWidget ?? Container()),
                   ),
                   // Description
@@ -795,11 +795,11 @@ class IntroSliderState extends State<IntroSlider>
                         border: Border(
                           top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                           left:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                           right:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                           bottom:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                         ),
                       ),
                       padding: EdgeInsets.symmetric(
@@ -835,33 +835,34 @@ class IntroSliderState extends State<IntroSlider>
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Color(0xff1A1C2E),
       decoration: backgroundImage != null
           ? BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(backgroundImage),
-                fit: backgroundImageFit ?? BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  backgroundOpacityColor != null
-                      ? backgroundOpacityColor
-                          .withOpacity(backgroundOpacity ?? 0.5)
-                      : Colors.black.withOpacity(backgroundOpacity ?? 0.5),
-                  backgroundBlendMode ?? BlendMode.darken,
-                ),
-              ),
-            )
+        color: Color(0xff1A1C2E),
+        image: DecorationImage(
+          image: AssetImage(backgroundImage),
+          fit: backgroundImageFit ?? BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            backgroundOpacityColor != null
+                ? backgroundOpacityColor
+                .withOpacity(backgroundOpacity ?? 0.5)
+                : Colors.black.withOpacity(backgroundOpacity ?? 0.5),
+            backgroundBlendMode ?? BlendMode.darken,
+          ),
+        ),
+      )
           : BoxDecoration(
-              gradient: LinearGradient(
-                colors: backgroundColor != null
-                    ? ([backgroundColor, backgroundColor])
-                    : [
-                        colorBegin ?? Colors.amberAccent,
-                        colorEnd ?? Colors.amberAccent
-                      ],
-                begin: directionColorBegin ?? Alignment.topLeft,
-                end: directionColorEnd ?? Alignment.bottomRight,
-              ),
-            ),
+        color: Color(0xff1A1C2E),
+        gradient: LinearGradient(
+          colors: backgroundColor != null
+              ? ([backgroundColor, backgroundColor])
+              : [
+            colorBegin ?? Colors.amberAccent,
+            colorEnd ?? Colors.amberAccent
+          ],
+          begin: directionColorBegin ?? Alignment.topLeft,
+          end: directionColorEnd ?? Alignment.bottomRight,
+        ),
+      ),
       child: Container(
         margin: const EdgeInsets.only(bottom: 60.0),
         child: listView,
