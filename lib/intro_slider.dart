@@ -765,7 +765,7 @@ class IntroSliderState extends State<IntroSlider>
                                       fontWeight: FontWeight.w900,
                                       fontSize: 30.0,
                                       fontFamily: 'MontserratExtraBold'),
-                              maxLines: maxLineTitle ?? 1,
+                              maxLines: 3,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
                             ),
