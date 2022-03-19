@@ -835,6 +835,7 @@ class IntroSliderState extends State<IntroSlider>
     return Container(
       width: double.infinity,
       height: double.infinity,
+      color: Color(0xff1A1C2E),
       decoration: backgroundImage != null
           ? BoxDecoration(
               image: DecorationImage(
