@@ -90,6 +90,9 @@ class IntroSlider extends StatefulWidget {
   /// Size of each dot
   final double? sizeDot;
 
+  final double? subTitleFontSize;
+  final double? titleFontSize;
+
   /// Type dots animation
   final dotSliderAnimation? typeDotAnimation;
 
@@ -151,6 +154,8 @@ class IntroSlider extends StatefulWidget {
     this.colorDot,
     this.showDotIndicator,
     this.sizeDot,
+    this.subTitleFontSize,
+    this.titleFontSize,
     this.typeDotAnimation,
 
     // Tabs
@@ -245,6 +250,8 @@ class IntroSliderState extends State<IntroSlider>
 
   /// Size of each dot
   late final double sizeDot;
+  late final double? subTitleFontSize;
+  late final double? titleFontSize;
 
   /// Type dots animation
   late final dotSliderAnimation typeDotAnimation;
@@ -286,7 +293,8 @@ class IntroSliderState extends State<IntroSlider>
   void initState() {
     super.initState();
     slides = widget.slides;
-
+    subTitleFontSize = widget.subTitleFontSize;
+    titleFontSize = widget.titleFontSize;
     skipButtonKey = widget.skipButtonKey;
     prevButtonKey = widget.prevButtonKey;
     doneButtonKey = widget.doneButtonKey;
@@ -761,10 +769,10 @@ class IntroSliderState extends State<IntroSlider>
                             Text(
                               title ?? '',
                               style: styleTitle ??
-                                  const TextStyle(
+                                   TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
-                                      fontSize: 30.0,
+                                      fontSize: titleFontSize,
                                       fontFamily: 'MontserratExtraBold'),
                               maxLines: 3,
                               textAlign: TextAlign.center,
@@ -778,9 +786,9 @@ class IntroSliderState extends State<IntroSlider>
                             Text(
                               description ?? '',
                               style: styleDescription ??
-                                  const TextStyle(
+                                   TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18.0,
+                                      fontSize: subTitleFontSize,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: 'Montserrat'),
                               textAlign: TextAlign.center,
