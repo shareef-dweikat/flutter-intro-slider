@@ -509,17 +509,17 @@ class IntroSliderState extends State<IntroSlider>
         child: Stack(
           children: <Widget>[
             TabBarView(
-              controller: tabController,
-              physics: isScrollable
-                  ? scrollPhysics
-                  : const NeverScrollableScrollPhysics(),
+              // controller: tabController,
+              // physics: isScrollable
+              //     ? scrollPhysics
+              //     : const NeverScrollableScrollPhysics(),
               children: tabs,
             ),
             renderBottom(),
           ],
         ),
       ),
-      backgroundColor: widget.backgroundColorAllSlides ?? Colors.transparent,
+      backgroundColor: Color(0xff1A1C2E),
     );
   }
 
@@ -735,6 +735,7 @@ class IntroSliderState extends State<IntroSlider>
       childrenDelegate: SliverChildBuilderDelegate(
             (context, index) {
           return Container(
+              color: Color(0xff1A1C2E),
               height: MediaQuery.of(context).size.height - 60.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -864,7 +865,8 @@ class IntroSliderState extends State<IntroSlider>
         ),
       ),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 60.0),
+        color: Color(0xff1A1C2E),
+        // margin: const EdgeInsets.only(bottom: 60.0),
         child: listView,
       ),
     );
