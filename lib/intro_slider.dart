@@ -522,8 +522,13 @@ class IntroSliderState extends State<IntroSlider>
                   ? scrollPhysics
                   : const NeverScrollableScrollPhysics(),
               children: tabs,
+              // children: [
+              //   Container (
+              //     child
+              //   )
+              // ],
             ),
-            renderBottom(),
+           renderBottom(),
           ],
         ),
       ),
@@ -584,76 +589,57 @@ class IntroSliderState extends State<IntroSlider>
   }
 
   Widget renderBottom() {
-    return Positioned(
-      bottom: 10.0,
-      left: 10.0,
-      right: 10.0,
-      child: Row(
-        children: <Widget>[
-          // Skip button
-          Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 4,
-            child: showSkipBtn
-                ? buildSkipButton()
-                : (showPrevBtn ? buildPrevButton() : Container()),
-          ),
-
-          // Dot indicator
-          Flexible(
-            child: showDotIndicator
-                ? Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(bottom: 35.0.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: renderListDots(),
-                  ),
-                ),
-                if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT)
-                  Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: colorActiveDot,
-                          borderRadius:
-                          BorderRadius.circular(sizeDot / 2)),
-                      width: sizeDot,
-                      height: sizeDot,
-                      margin: EdgeInsets.only(
-                          left: isRTLLanguage(
-                              Localizations.localeOf(context)
-                                  .languageCode)
-                              ? marginRightDotFocused
-                              : marginLeftDotFocused,
-                          right: isRTLLanguage(
-                              Localizations.localeOf(context)
-                                  .languageCode)
-                              ? marginLeftDotFocused
-                              : marginRightDotFocused),
+    return  Positioned(
+        bottom: 20.0,
+        left: 10.0,
+        right: 10.0,
+        child: Row(
+          children: <Widget>[
+            Flexible(
+              flex: 1,
+              child: showDotIndicator
+                  ? Stack(
+                children: <Widget>[
+                  Container(
+                    // margin: EdgeInsets.only(bottom: 35.0.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: renderListDots(),
                     ),
-                  )
-                else
-                  Container()
-              ],
-            )
-                : Container(),
-          ),
-          // Next, Done button
-          Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 4,
-            height: 50,
-            child: tabController.index + 1 == lengthSlide
-                ? showDoneBtn
-                ? buildDoneButton()
-                : Container()
-                : showNextBtn
-                ? buildNextButton()
-                : Container(),
-          ),
-        ],
-      ),
+                  ),
+                  if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT)
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: colorActiveDot,
+                                borderRadius:
+                                BorderRadius.circular(sizeDot / 2)),
+                            width: sizeDot,
+                            height: sizeDot,
+                            margin: EdgeInsets.only(
+                                left: isRTLLanguage(
+                                    Localizations.localeOf(context)
+                                        .languageCode)
+                                    ? marginRightDotFocused
+                                    : marginLeftDotFocused,
+                                right: isRTLLanguage(
+                                    Localizations.localeOf(context)
+                                        .languageCode)
+                                    ? marginLeftDotFocused
+                                    : marginRightDotFocused),
+                          )
+                        ]
+                    )
+                  else
+                    Container()
+                ],
+              )
+                  : Container(),
+            ),
+          ],
+        )
     );
   }
 
@@ -666,6 +652,9 @@ class IntroSliderState extends State<IntroSlider>
           scrollController,
           slides?[i].widgetTitle,
           slides?[i].title,
+          slides?[i].titleTextFontSize,
+          slides?[i].subTitleTextFontSize,
+          slides?[i].desktopActionButtonEnabled,
           slides?[i].maxLineTitle,
           slides?[i].styleTitle,
           slides?[i].marginTitle,
@@ -703,6 +692,9 @@ class IntroSliderState extends State<IntroSlider>
       // Title
       Widget? widgetTitle,
       String? title,
+      double? titleTextFontSize,
+      double? subTitleTextFontSize,
+      bool? desktopActionButtonEnabled,
       int? maxLineTitle,
       TextStyle? styleTitle,
       EdgeInsets? marginTitle,
@@ -742,100 +734,160 @@ class IntroSliderState extends State<IntroSlider>
       controller: scrollController,
       childrenDelegate: SliverChildBuilderDelegate(
             (context, index) {
-          return Container(
-              color: Color(0xff1A1C2E),
-              height: MediaQuery.of(context).size.height - 60.0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Image or Center widget
-                  Container(
-                    margin: marginTitle ??
-                        const EdgeInsets.only(left: 20.0, right: 20.0),
-                    // onTap: onCenterItemPress,
-                    child: pathImage != null
-                        ? Image.asset(
-                      pathImage,
-                      fit: foregroundImageFit ?? BoxFit.contain,
-                    )
-                        : Center(child: centerWidget ?? Container()),
-                  ),
-                  // Description
-                  Column(
-                    children: [
-                      Container(
-                        // Title
-                        child: widgetTitle ??
-                            Text(
-                              title ?? '',
-                              style: styleTitle ??
-                                   TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: titleFontSize,
-                                      fontFamily: 'MontserratExtraBold'),
-                              maxLines: 3,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                      ),
-                      Container(
-                        margin: marginDescription ??
-                            const EdgeInsets.fromLTRB(60.0, 10.0, 60.0, 0.0),
-                        child: widgetDescription ??
-                            Text(
-                              description ?? '',
-                              style: styleDescription ??
-                                   TextStyle(
-                                      color: Colors.white,
-                                      fontSize: subTitleFontSize,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'Montserrat'),
-                              textAlign: TextAlign.center,
-                              maxLines: maxLineTextDescription ?? 100,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        border: Border(
-                          top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                          left:
-                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                          right:
-                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                          bottom:
-                          BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                        ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 0.0.h, horizontal: 4.0.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+              return LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return Container(
+                      color: Color(0xff1A1C2E),
+                      height: MediaQuery.of(context).size.height - 60,
+                      child: Column (
+                        mainAxisAlignment: desktopActionButtonEnabled == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
                         children: [
-                          FlatButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                //this line takes user to home screen (send screen) when Start Here button is clicked
-                                if (btnTitle == 'Start Here') onDonePress!();
-                                if (!isAnimating() && btnTitle != 'Start Here') {
-                                  tabController
-                                      .animateTo(tabController.index + 1);
-                                }
-                              },
-                              child: Text(
-                                btnTitle,
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              )),
+                          if((tabController.index > 0 == true) && desktopActionButtonEnabled == true)
+                          Container(
+                            height: 26.0,
+                            margin: EdgeInsets.only(left: 8.0, top: 8.0),
+                      child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextButton(
+                      onPressed: () {
+                      tabController.animateTo(tabController.index - 1);
+                      },
+                                  child:  Image.asset('assets/images/icons/WHITE-ARROW.png'),
+                                )
+                              ],
+                            )
+                          ),
+                          Flexible (
+                            flex: 20,
+                              child: pathImage != null
+                                          ? Image.asset(
+                                        pathImage,
+                                fit: BoxFit.contain,
+                                      )
+                                          : Center(child: centerWidget ?? Container()),
+                          ),
+                          Flexible (
+                        flex: 8,
+                          child: Column (
+                            children: [
+                              widgetTitle ??
+                                  Text(
+                                    title ?? '',
+                                    style: styleTitle ??
+                                        TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: titleTextFontSize,
+                                            fontFamily: 'MontserratExtraBold'),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                              Container(
+                                width: desktopActionButtonEnabled == true ? 450.0: 300,
+                                margin: marginDescription ??
+                                    const EdgeInsets.only(top: 8.0),
+                                child: widgetDescription ??
+                                    Text(
+                                      description ?? '',
+                                      style: styleDescription ??
+                                          TextStyle(
+                                              color: Colors.white,
+                                              fontSize: subTitleTextFontSize,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: 'Montserrat'),
+                                      textAlign: TextAlign.center,
+                                      maxLines: maxLineTextDescription ?? 100,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                              )
+                            ],
+                          )
+
+                      ),
+                          desktopActionButtonEnabled == true ?
+                          Flexible(
+                            flex: 4,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                  color: Color(0xffC24DF8),
+                                  border: Border.all(width: 1.0, color: Color(0xffC24DF8)),
+                                ),
+                                width: 120,
+                                height: 30,
+                                child: TextButton(
+                                    onPressed: () {
+                                      if (btnTitle == 'Start Here') onDonePress!();
+                                      if (!isAnimating() && btnTitle != 'Start Here') {
+                                        tabController
+                                            .animateTo(tabController.index + 1);
+                                      }
+                                     // tabController.animateTo(tabController.index - 1);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(btnTitle,
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontFamily: 'MontserratLight',
+                                                color: Color(0xff000000)
+                                              )),
+                                        ),
+                                      ],
+                                    ))
+                            ),
+                          ) :
+                          Flexible(
+                            flex: 3,
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                  border: Border(
+                                    top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                                    left:
+                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                                    right:
+                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                                    bottom:
+                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0.0.h, horizontal: 8.0.w),
+                                margin: EdgeInsets.only(bottom: 16.0),
+                                height: 50.0,
+                                width: 110.0,
+                                child:
+                                TextButton(
+                                    onPressed: () {
+                                      if (btnTitle == 'Start Here') onDonePress!();
+                                      if (!isAnimating() && btnTitle != 'Start Here') {
+                                        tabController
+                                            .animateTo(tabController.index + 1);
+                                      }
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        btnTitle,
+                                        style: TextStyle(color: Colors.white),
+                                        textAlign: TextAlign.center,
+                                      )
+                                    )
+                                ),
+                            )
+                          ),
                         ],
-                      ))
-                ],
-              ));
+                      ),
+
+                  );
+                },
+              );
+
         },
         childCount: 1,
       ),

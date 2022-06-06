@@ -9,6 +9,12 @@ class Slide {
   /// Change text title at top
   String? title;
 
+  double? titleTextFontSize;
+
+  bool? desktopActionButtonEnabled;
+
+  double? subTitleTextFontSize;
+
   /// Change max number of lines title at top
   int? maxLineTitle;
 
@@ -82,6 +88,9 @@ class Slide {
     // Title
     this.widgetTitle,
     this.title,
+    this.titleTextFontSize,
+    this.desktopActionButtonEnabled,
+    this.subTitleTextFontSize,
     this.maxLineTitle,
     this.styleTitle,
     this.marginTitle,
