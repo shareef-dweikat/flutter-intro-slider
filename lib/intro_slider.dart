@@ -528,7 +528,7 @@ class IntroSliderState extends State<IntroSlider>
               //   )
               // ],
             ),
-           renderBottom(),
+            renderBottom(),
           ],
         ),
       ),
@@ -734,159 +734,160 @@ class IntroSliderState extends State<IntroSlider>
       controller: scrollController,
       childrenDelegate: SliverChildBuilderDelegate(
             (context, index) {
-              return LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return Container(
-                      color: Color(0xff1A1C2E),
-                      height: MediaQuery.of(context).size.height - 60,
-                      child: Column (
-                        mainAxisAlignment: desktopActionButtonEnabled == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
-                        children: [
-                          if((tabController.index > 0 == true) && desktopActionButtonEnabled == true)
-                          Container(
-                            height: 26.0,
-                            margin: EdgeInsets.only(left: 8.0, top: 8.0),
-                      child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextButton(
-                      onPressed: () {
-                      tabController.animateTo(tabController.index - 1);
-                      },
-                                  child:  Image.asset('assets/images/icons/WHITE-ARROW.png'),
-                                )
-                              ],
-                            )
-                          ),
-                          Flexible (
-                            flex: 20,
-                              child: pathImage != null
-                                          ? Image.asset(
-                                        pathImage,
-                                fit: BoxFit.contain,
-                                      )
-                                          : Center(child: centerWidget ?? Container()),
-                          ),
-                          Flexible (
-                        flex: 8,
-                          child: Column (
+          return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return Container(
+                color: Color(0xff1A1C2E),
+                height: MediaQuery.of(context).size.height - 60,
+                child: Column (
+                  mainAxisAlignment: desktopActionButtonEnabled == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
+                  children: [
+                    if(desktopActionButtonEnabled == true && title != 'End-to-End Encryption')
+                      Container(
+                          height: 26.0,
+                          margin: EdgeInsets.only(left: 8.0, top: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              widgetTitle ??
-                                  Text(
-                                    title ?? '',
-                                    style: styleTitle ??
-                                        TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w900,
-                                            fontSize: titleTextFontSize,
-                                            fontFamily: 'MontserratExtraBold'),
-                                    maxLines: 3,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                              Container(
-                                width: desktopActionButtonEnabled == true ? 450.0: 300,
-                                margin: marginDescription ??
-                                    const EdgeInsets.only(top: 8.0),
-                                child: widgetDescription ??
-                                    Text(
-                                      description ?? '',
-                                      style: styleDescription ??
-                                          TextStyle(
-                                              color: Colors.white,
-                                              fontSize: subTitleTextFontSize,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: 'Montserrat'),
-                                      textAlign: TextAlign.center,
-                                      maxLines: maxLineTextDescription ?? 100,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                              TextButton(
+                                onPressed: () {
+                                  tabController.animateTo(tabController.index - 1);
+                                },
+                                child:  Image.asset('assets/images/icons/WHITE-ARROW.png'),
                               )
                             ],
                           )
-
-                      ),
-                          desktopActionButtonEnabled == true ?
-                          Flexible(
-                            flex: 4,
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                  color: Color(0xffC24DF8),
-                                  border: Border.all(width: 1.0, color: Color(0xffC24DF8)),
+                      )
+                    else
+              Container(height: 26.0, margin: EdgeInsets.only(left: 8.0, top: 8.0)),
+                    Flexible (
+                      flex: 20,
+                      child: pathImage != null
+                          ? Image.asset(
+                        pathImage,
+                        fit: BoxFit.contain,
+                      )
+                          : Center(child: centerWidget ?? Container()),
+                    ),
+                    Flexible (
+                        flex: 8,
+                        child: Column (
+                          children: [
+                            widgetTitle ??
+                                Text(
+                                  title ?? '',
+                                  style: styleTitle ??
+                                      TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: titleTextFontSize,
+                                          fontFamily: 'MontserratExtraBold'),
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                width: 120,
-                                height: 30,
-                                child: TextButton(
-                                    onPressed: () {
-                                      if (btnTitle == 'Start Here') onDonePress!();
-                                      if (!isAnimating() && btnTitle != 'Start Here') {
-                                        tabController
-                                            .animateTo(tabController.index + 1);
-                                      }
-                                     // tabController.animateTo(tabController.index - 1);
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(btnTitle,
-                                              style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontFamily: 'MontserratLight',
-                                                color: Color(0xff000000)
-                                              )),
-                                        ),
-                                      ],
-                                    ))
-                            ),
-                          ) :
-                          Flexible(
-                            flex: 3,
-                            child: Container(
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                                  border: Border(
-                                    top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                                    left:
-                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                                    right:
-                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                                    bottom:
-                                    BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                            Container(
+                              width: desktopActionButtonEnabled == true ? 450.0: 300,
+                              margin: marginDescription ??
+                                  const EdgeInsets.only(top: 8.0),
+                              child: widgetDescription ??
+                                  Text(
+                                    description ?? '',
+                                    style: styleDescription ??
+                                        TextStyle(
+                                            color: Colors.white,
+                                            fontSize: subTitleTextFontSize,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: 'Montserrat'),
+                                    textAlign: TextAlign.center,
+                                    maxLines: maxLineTextDescription ?? 100,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 0.0.h, horizontal: 8.0.w),
-                                margin: EdgeInsets.only(bottom: 16.0),
-                                height: 50.0,
-                                width: 110.0,
-                                child:
-                                TextButton(
-                                    onPressed: () {
-                                      if (btnTitle == 'Start Here') onDonePress!();
-                                      if (!isAnimating() && btnTitle != 'Start Here') {
-                                        tabController
-                                            .animateTo(tabController.index + 1);
-                                      }
-                                    },
-                                    child: Center(
-                                      child: Text(
-                                        btnTitle,
-                                        style: TextStyle(color: Colors.white),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    )
-                                ),
                             )
-                          ),
-                        ],
-                      ),
+                          ],
+                        )
 
-                  );
-                },
+                    ),
+                    desktopActionButtonEnabled == true ?
+                    Flexible(
+                      flex: 4,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            color: Color(0xffC24DF8),
+                            border: Border.all(width: 1.0, color: Color(0xffC24DF8)),
+                          ),
+                          width: 120,
+                          height: 30,
+                          child: TextButton(
+                              onPressed: () {
+                                if (btnTitle == 'Start Here') onDonePress!();
+                                if (!isAnimating() && btnTitle != 'Start Here') {
+                                  tabController
+                                      .animateTo(tabController.index + 1);
+                                }
+                                // tabController.animateTo(tabController.index - 1);
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    child: Text(btnTitle,
+                                        style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontFamily: 'MontserratLight',
+                                            color: Color(0xff000000)
+                                        )),
+                                  ),
+                                ],
+                              ))
+                      ),
+                    ) :
+                    Flexible(
+                        flex: 3,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                            border: Border(
+                              top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                              left:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                              right:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                              bottom:
+                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                            ),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0.0.h, horizontal: 8.0.w),
+                          margin: EdgeInsets.only(bottom: 16.0),
+                          height: 50.0,
+                          width: 110.0,
+                          child:
+                          TextButton(
+                              onPressed: () {
+                                if (btnTitle == 'Start Here') onDonePress!();
+                                if (!isAnimating() && btnTitle != 'Start Here') {
+                                  tabController
+                                      .animateTo(tabController.index + 1);
+                                }
+                              },
+                              child: Center(
+                                  child: Text(
+                                    btnTitle,
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  )
+                              )
+                          ),
+                        )
+                    ),
+                  ],
+                ),
+
               );
+            },
+          );
 
         },
         childCount: 1,
