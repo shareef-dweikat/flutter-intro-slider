@@ -759,7 +759,7 @@ class IntroSliderState extends State<IntroSlider>
                           )
                       )
                     else
-              Container(height: 26.0, margin: EdgeInsets.only(left: 8.0, top: 8.0)),
+                      Container(height: 26.0, margin: EdgeInsets.only(left: 8.0, top: 8.0)),
                     Flexible (
                       flex: 20,
                       child: pathImage != null
@@ -821,8 +821,8 @@ class IntroSliderState extends State<IntroSlider>
                           height: 30,
                           child: TextButton(
                               onPressed: () {
-                                if (btnTitle == 'Start Here') onDonePress!();
-                                if (!isAnimating() && btnTitle != 'Start Here') {
+                                if (btnTitle == 'Get Started') onDonePress!();
+                                if (!isAnimating() && btnTitle != 'Get Started') {
                                   tabController
                                       .animateTo(tabController.index + 1);
                                 }
@@ -866,8 +866,8 @@ class IntroSliderState extends State<IntroSlider>
                           child:
                           TextButton(
                               onPressed: () {
-                                if (btnTitle == 'Start Here') onDonePress!();
-                                if (!isAnimating() && btnTitle != 'Start Here') {
+                                if (btnTitle == 'Get Started') onDonePress!();
+                                if (!isAnimating() && btnTitle != 'Get Started') {
                                   tabController
                                       .animateTo(tabController.index + 1);
                                 }
