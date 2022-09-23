@@ -10,6 +10,7 @@ import 'dot_animation_enum.dart';
 import 'list_rtl_language.dart';
 import 'scrollbar_behavior_enum.dart';
 import 'slide_object.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class IntroSlider extends StatefulWidget {
   // ---------- Slides ----------
@@ -588,9 +589,10 @@ class IntroSliderState extends State<IntroSlider>
     );
   }
 
+  bool isChecked = false;
   Widget renderBottom() {
     return  Positioned(
-        bottom: 20.0,
+        bottom: tabController.index == 2 ? 5.0 : 20.0,
         left: 10.0,
         right: 10.0,
         child: Row(
@@ -601,13 +603,52 @@ class IntroSliderState extends State<IntroSlider>
                   ? Stack(
                 children: <Widget>[
                   Container(
-                    // margin: EdgeInsets.only(bottom: 35.0.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: renderListDots(),
-                    ),
+                      child: tabController.index == 2 ?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            checkColor: Colors.purple,
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))), // Rounded Checkbox
+                            side: BorderSide(
+                              width: 16.0,
+                              color: Colors.white,
+                            ),
+                            fillColor: MaterialStateProperty.resolveWith((states) => Colors.transparent),
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+                          ),
+                          Text(
+                              'I agree to the ',
+                              style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Color(0xffFDFCFC)
+                              )
+                          ),
+                          GestureDetector(
+                            child: Text('Terms & Conditions',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Color(0xff00D9FF),
+                                  fontSize: 12.0,
+                                )
+                            ),
+                            onTap: () async {
+                              launch('https://github.com/LeastAuthority/destiny/blob/main/README.md');
+                            },
+                          )
+                        ],
+                      )
+                          :  Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: renderListDots(),
+                      )
                   ),
-                  if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT)
+                  if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT && tabController.index != 2)
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
