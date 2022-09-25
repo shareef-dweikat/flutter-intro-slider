@@ -20,6 +20,8 @@ class IntroSlider extends StatefulWidget {
   /// Background color for all slides
   final Color? backgroundColorAllSlides;
 
+  final bool? desktopActionButtonEnabled;
+
   // ---------- SKIP button ----------
   /// Render your own widget SKIP button
   final Widget? renderSkipBtn;
@@ -123,7 +125,7 @@ class IntroSlider extends StatefulWidget {
     // Slides
     this.slides,
     this.backgroundColorAllSlides,
-
+this.desktopActionButtonEnabled,
     // Skip
     this.renderSkipBtn,
     this.skipButtonStyle,
@@ -273,6 +275,8 @@ class IntroSliderState extends State<IntroSlider>
   late final scrollbarBehavior verticalScrollbarBehavior;
 
   late TabController tabController;
+
+  bool isChecked = false;
 
   List<Widget> tabs = [];
   List<Widget> dots = [];
@@ -589,10 +593,9 @@ class IntroSliderState extends State<IntroSlider>
     );
   }
 
-  bool isChecked = false;
   Widget renderBottom() {
     return  Positioned(
-        bottom: tabController.index == 2 ? 5.0 : 20.0,
+        bottom: tabController.index == 2 ? 10.0 : 20.0,
         left: 10.0,
         right: 10.0,
         child: Row(
@@ -603,7 +606,7 @@ class IntroSliderState extends State<IntroSlider>
                   ? Stack(
                 children: <Widget>[
                   Container(
-                      child: tabController.index == 2 ?
+                      child: tabController.index == 2?
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -617,6 +620,7 @@ class IntroSliderState extends State<IntroSlider>
                             fillColor: MaterialStateProperty.resolveWith((states) => Colors.transparent),
                             value: isChecked,
                             onChanged: (bool? value) {
+                              renderListTabs();
                               setState(() {
                                 isChecked = value!;
                               });
@@ -685,6 +689,7 @@ class IntroSliderState extends State<IntroSlider>
   }
 
   List<Widget>? renderListTabs() {
+    tabs = [];
     for (var i = 0; i < lengthSlide; i++) {
       final scrollController = ScrollController();
       scrollControllers.add(scrollController);
@@ -727,9 +732,34 @@ class IntroSliderState extends State<IntroSlider>
     return tabs;
   }
 
+  void handleClicked (String btnTitle) {
+
+      if(!isChecked && btnTitle == 'Get Started') return;
+      if (btnTitle == 'Get Started') onDonePress!();
+      if (!isAnimating() && btnTitle != 'Get Started') {
+        tabController
+            .animateTo(tabController.index + 1);
+      }
+      // tabController.animateTo(tabController.index - 1);
+  }
+
+  Widget getButton (String btnTitle) {
+    return TextButton(
+        key: UniqueKey(),
+        onPressed: () {
+          handleClicked(btnTitle);
+        },
+        child: Center(
+            child: Text(
+              btnTitle,
+              style: TextStyle(color: isChecked ||  btnTitle != 'Get Started'?  Colors.white : Color(0x66FDFAFA)),
+              textAlign: TextAlign.center,
+            )
+        )
+    );
+  }
   Widget renderTab(
       ScrollController scrollController,
-
       // Title
       Widget? widgetTitle,
       String? title,
@@ -779,6 +809,7 @@ class IntroSliderState extends State<IntroSlider>
             builder: (BuildContext context, BoxConstraints constraints) {
               return Container(
                 color: Color(0xff1A1C2E),
+                key: Key('$isChecked'),
                 height: MediaQuery.of(context).size.height - 60,
                 child: Column (
                   mainAxisAlignment: desktopActionButtonEnabled == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
@@ -853,22 +884,22 @@ class IntroSliderState extends State<IntroSlider>
                     Flexible(
                       flex: 4,
                       child: Container(
-                          decoration: BoxDecoration(
+                          decoration: isChecked ||  btnTitle != 'Get Started'? BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(5.0)),
                             color: Color(0xffC24DF8),
                             border: Border.all(width: 1.0, color: Color(0xffC24DF8)),
+                          ): BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            color: Color(0x66C24DF8),
+                            border: Border.all(width: 1.0, color: Color(0x66C24DF8)),
                           ),
                           width: 120,
                           height: 30,
                           child: TextButton(
                               onPressed: () {
-                                if (btnTitle == 'Get Started') onDonePress!();
-                                if (!isAnimating() && btnTitle != 'Get Started') {
-                                  tabController
-                                      .animateTo(tabController.index + 1);
-                                }
-                                // tabController.animateTo(tabController.index - 1);
+                                handleClicked(btnTitle);
                               },
+                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.transparent)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -886,10 +917,11 @@ class IntroSliderState extends State<IntroSlider>
                     ) :
                     Flexible(
                         flex: 3,
+                        key: Key('$isChecked'),
                         child: Container(
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                            border: Border(
+                            border: isChecked ||  btnTitle != 'Get Started'? Border(
                               top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                               left:
                               BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
@@ -897,6 +929,14 @@ class IntroSliderState extends State<IntroSlider>
                               BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
                               bottom:
                               BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
+                            ): Border(
+                              top: BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
+                              left:
+                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
+                              right:
+                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
+                              bottom:
+                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
                             ),
                           ),
                           padding: EdgeInsets.symmetric(
@@ -904,28 +944,11 @@ class IntroSliderState extends State<IntroSlider>
                           margin: EdgeInsets.only(bottom: 16.0),
                           height: 50.0,
                           width: 110.0,
-                          child:
-                          TextButton(
-                              onPressed: () {
-                                if (btnTitle == 'Get Started') onDonePress!();
-                                if (!isAnimating() && btnTitle != 'Get Started') {
-                                  tabController
-                                      .animateTo(tabController.index + 1);
-                                }
-                              },
-                              child: Center(
-                                  child: Text(
-                                    btnTitle,
-                                    style: TextStyle(color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  )
-                              )
-                          ),
+                          child: getButton(btnTitle)
                         )
                     ),
                   ],
                 ),
-
               );
             },
           );
