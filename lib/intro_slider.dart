@@ -117,11 +117,14 @@ class IntroSlider extends StatefulWidget {
   /// Show or hide status bar
   final bool? hideStatusBar;
 
+  final String? termsLink;
+
   /// The way the vertical scrollbar should behave
   final scrollbarBehavior? verticalScrollbarBehavior;
 
   // Constructor
   IntroSlider({
+    this.termsLink,
     // Slides
     this.slides,
     this.backgroundColorAllSlides,
@@ -195,6 +198,8 @@ class IntroSliderState extends State<IntroSlider>
 
   /// Show or hide SKIP button
   late final bool showSkipBtn;
+
+  late final String? termsLink;
 
   /// Assign Key to SKIP button
   late final Key? skipButtonKey;
@@ -297,6 +302,7 @@ class IntroSliderState extends State<IntroSlider>
   @override
   void initState() {
     super.initState();
+    termsLink = widget.termsLink;
     slides = widget.slides;
     subTitleFontSize = widget.subTitleFontSize;
     titleFontSize = widget.titleFontSize;
@@ -642,7 +648,7 @@ class IntroSliderState extends State<IntroSlider>
                                 )
                             ),
                             onTap: () async {
-                              launch('https://github.com/LeastAuthority/destiny/blob/main/README.md');
+                              launch(termsLink ?? "");
                             },
                           )
                         ],
