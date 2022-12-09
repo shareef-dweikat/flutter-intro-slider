@@ -128,7 +128,7 @@ class IntroSlider extends StatefulWidget {
     // Slides
     this.slides,
     this.backgroundColorAllSlides,
-this.desktopActionButtonEnabled,
+    this.desktopActionButtonEnabled,
     // Skip
     this.renderSkipBtn,
     this.skipButtonStyle,
@@ -369,9 +369,9 @@ class IntroSliderState extends State<IntroSlider>
             }
 
             var diffValueAnimation =
-            (tabController.animation!.value - currentAnimationValue).abs();
+                (tabController.animation!.value - currentAnimationValue).abs();
             final diffValueIndex =
-            (currentTabIndex - tabController.index).abs();
+                (currentTabIndex - tabController.index).abs();
 
             // When press skip button
             if (tabController.indexIsChanging &&
@@ -437,7 +437,7 @@ class IntroSliderState extends State<IntroSlider>
   void setupButtonDefaultValues() {
     // Skip button
     onSkipPress = widget.onSkipPress ??
-            () {
+        () {
           if (!isAnimating()) {
             if (lengthSlide > 0) {
               tabController.animateTo(lengthSlide - 1);
@@ -600,7 +600,7 @@ class IntroSliderState extends State<IntroSlider>
   }
 
   Widget renderBottom() {
-    return  Positioned(
+    return Positioned(
         bottom: tabController.index == 2 ? 10.0 : 20.0,
         left: 10.0,
         right: 10.0,
@@ -610,88 +610,89 @@ class IntroSliderState extends State<IntroSlider>
               flex: 1,
               child: showDotIndicator
                   ? Stack(
-                children: <Widget>[
-                  Container(
-                      child: tabController.index == 2?
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Checkbox(
-                            checkColor: Colors.purple,
-                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))), // Rounded Checkbox
-                            side: BorderSide(
-                              width: 16.0,
-                              color: Colors.white,
-                            ),
-                            fillColor: MaterialStateProperty.resolveWith((states) => Colors.transparent),
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              renderListTabs();
-                              setState(() {
-                                isChecked = value!;
-                              });
-                            },
-                          ),
-                          Text(
-                              'I agree to the ',
-                              style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Color(0xffFDFCFC)
-                              )
-                          ),
-                          GestureDetector(
-                            child: Text('Terms & Conditions',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff00D9FF),
-                                  fontSize: 12.0,
+                      children: <Widget>[
+                        Container(
+                            child: tabController.index == 2
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Checkbox(
+                                        checkColor: Colors.purple,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    5.0))), // Rounded Checkbox
+                                        side: BorderSide(
+                                          width: 16.0,
+                                          color: Colors.white,
+                                        ),
+                                        fillColor:
+                                            MaterialStateProperty.resolveWith(
+                                                (states) => Colors.transparent),
+                                        value: isChecked,
+                                        onChanged: (bool? value) {
+                                          renderListTabs();
+                                          setState(() {
+                                            isChecked = value!;
+                                          });
+                                        },
+                                      ),
+                                      Text('I agree to the ',
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Color(0xffFDFCFC))),
+                                      GestureDetector(
+                                        child: Text('Terms & Conditions',
+                                            style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Color(0xff00D9FF),
+                                              fontSize: 12.0,
+                                            )),
+                                        onTap: () async {
+                                          launch(termsLink ?? "");
+                                        },
+                                      )
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: renderListDots(),
+                                  )),
+                        if (typeDotAnimation ==
+                                dotSliderAnimation.DOT_MOVEMENT &&
+                            tabController.index != 2)
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: colorActiveDot,
+                                      borderRadius:
+                                          BorderRadius.circular(sizeDot / 2)),
+                                  width: sizeDot,
+                                  height: sizeDot,
+                                  margin: EdgeInsets.only(
+                                      left: isRTLLanguage(
+                                              Localizations.localeOf(context)
+                                                  .languageCode)
+                                          ? marginRightDotFocused
+                                          : marginLeftDotFocused,
+                                      right: isRTLLanguage(
+                                              Localizations.localeOf(context)
+                                                  .languageCode)
+                                          ? marginLeftDotFocused
+                                          : marginRightDotFocused),
                                 )
-                            ),
-                            onTap: () async {
-                              launch(termsLink ?? "");
-                            },
-                          )
-                        ],
-                      )
-                          :  Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: renderListDots(),
-                      )
-                  ),
-                  if (typeDotAnimation == dotSliderAnimation.DOT_MOVEMENT && tabController.index != 2)
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: colorActiveDot,
-                                borderRadius:
-                                BorderRadius.circular(sizeDot / 2)),
-                            width: sizeDot,
-                            height: sizeDot,
-                            margin: EdgeInsets.only(
-                                left: isRTLLanguage(
-                                    Localizations.localeOf(context)
-                                        .languageCode)
-                                    ? marginRightDotFocused
-                                    : marginLeftDotFocused,
-                                right: isRTLLanguage(
-                                    Localizations.localeOf(context)
-                                        .languageCode)
-                                    ? marginLeftDotFocused
-                                    : marginRightDotFocused),
-                          )
-                        ]
+                              ])
+                        else
+                          Container()
+                      ],
                     )
-                  else
-                    Container()
-                ],
-              )
                   : Container(),
             ),
           ],
-        )
-    );
+        ));
   }
 
   List<Widget>? renderListTabs() {
@@ -738,18 +739,16 @@ class IntroSliderState extends State<IntroSlider>
     return tabs;
   }
 
-  void handleClicked (String btnTitle) {
-
-      if(!isChecked && btnTitle == 'Get Started') return;
-      if (btnTitle == 'Get Started') onDonePress!();
-      if (!isAnimating() && btnTitle != 'Get Started') {
-        tabController
-            .animateTo(tabController.index + 1);
-      }
-      // tabController.animateTo(tabController.index - 1);
+  void handleClicked(String btnTitle) {
+    if (!isChecked && btnTitle == 'Get Started') return;
+    if (btnTitle == 'Get Started') onDonePress!();
+    if (!isAnimating() && btnTitle != 'Get Started') {
+      tabController.animateTo(tabController.index + 1);
+    }
+    // tabController.animateTo(tabController.index - 1);
   }
 
-  Widget getButton (String btnTitle) {
+  Widget getButton(String btnTitle) {
     return TextButton(
         key: UniqueKey(),
         onPressed: () {
@@ -757,70 +756,75 @@ class IntroSliderState extends State<IntroSlider>
         },
         child: Center(
             child: Text(
-              btnTitle,
-              style: TextStyle(color: isChecked ||  btnTitle != 'Get Started'?  Colors.white : Color(0x66FDFAFA)),
-              textAlign: TextAlign.center,
-            )
-        )
-    );
+          btnTitle,
+          style: TextStyle(
+              color: isChecked || btnTitle != 'Get Started'
+                  ? Colors.white
+                  : Color(0x66FDFAFA)),
+          textAlign: TextAlign.center,
+        )));
   }
+
   Widget renderTab(
-      ScrollController scrollController,
-      // Title
-      Widget? widgetTitle,
-      String? title,
-      double? titleTextFontSize,
-      double? subTitleTextFontSize,
-      bool? desktopActionButtonEnabled,
-      int? maxLineTitle,
-      TextStyle? styleTitle,
-      EdgeInsets? marginTitle,
+    ScrollController scrollController,
+    // Title
+    Widget? widgetTitle,
+    String? title,
+    double? titleTextFontSize,
+    double? subTitleTextFontSize,
+    bool? desktopActionButtonEnabled,
+    int? maxLineTitle,
+    TextStyle? styleTitle,
+    EdgeInsets? marginTitle,
 
-      // Description
-      Widget? widgetDescription,
-      String? description,
-      int? maxLineTextDescription,
-      TextStyle? styleDescription,
-      EdgeInsets? marginDescription,
-      btnTitle,
-      // Image
-      String? pathImage,
-      double? widthImage,
-      double? heightImage,
-      BoxFit? foregroundImageFit,
+    // Description
+    Widget? widgetDescription,
+    String? description,
+    int? maxLineTextDescription,
+    TextStyle? styleDescription,
+    EdgeInsets? marginDescription,
+    btnTitle,
+    // Image
+    String? pathImage,
+    double? widthImage,
+    double? heightImage,
+    BoxFit? foregroundImageFit,
 
-      // Center Widget
-      Widget? centerWidget,
-      void Function()? onCenterItemPress,
+    // Center Widget
+    Widget? centerWidget,
+    void Function()? onCenterItemPress,
 
-      // Background color
-      Color? backgroundColor,
-      Color? colorBegin,
-      Color? colorEnd,
-      AlignmentGeometry? directionColorBegin,
-      AlignmentGeometry? directionColorEnd,
+    // Background color
+    Color? backgroundColor,
+    Color? colorBegin,
+    Color? colorEnd,
+    AlignmentGeometry? directionColorBegin,
+    AlignmentGeometry? directionColorEnd,
 
-      // Background image
-      String? backgroundImage,
-      BoxFit? backgroundImageFit,
-      double? backgroundOpacity,
-      Color? backgroundOpacityColor,
-      BlendMode? backgroundBlendMode,
-      ) {
+    // Background image
+    String? backgroundImage,
+    BoxFit? backgroundImageFit,
+    double? backgroundOpacity,
+    Color? backgroundOpacityColor,
+    BlendMode? backgroundBlendMode,
+  ) {
     final listView = ListView.custom(
       controller: scrollController,
       childrenDelegate: SliverChildBuilderDelegate(
-            (context, index) {
+        (context, index) {
           return LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               return Container(
                 color: Color(0xff1A1C2E),
                 key: Key('$isChecked'),
                 height: MediaQuery.of(context).size.height - 60,
-                child: Column (
-                  mainAxisAlignment: desktopActionButtonEnabled == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
+                child: Column(
+                  mainAxisAlignment: desktopActionButtonEnabled == true
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.spaceAround,
                   children: [
-                    if(desktopActionButtonEnabled == true && title != 'End-to-End Encryption')
+                    if (desktopActionButtonEnabled == true &&
+                        title != 'End-to-End Encryption')
                       Container(
                           height: 26.0,
                           margin: EdgeInsets.only(left: 8.0, top: 8.0),
@@ -829,27 +833,30 @@ class IntroSliderState extends State<IntroSlider>
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  tabController.animateTo(tabController.index - 1);
+                                  tabController
+                                      .animateTo(tabController.index - 1);
                                 },
-                                child:  Image.asset('assets/images/icons/WHITE-ARROW.png'),
+                                child: Image.asset(
+                                    'assets/images/icons/WHITE-ARROW.png'),
                               )
                             ],
-                          )
-                      )
+                          ))
                     else
-                      Container(height: 26.0, margin: EdgeInsets.only(left: 8.0, top: 8.0)),
-                    Flexible (
+                      Container(
+                          height: 26.0,
+                          margin: EdgeInsets.only(left: 8.0, top: 8.0)),
+                    Flexible(
                       flex: 20,
                       child: pathImage != null
                           ? Image.asset(
-                        pathImage,
-                        fit: BoxFit.contain,
-                      )
+                              pathImage,
+                              fit: BoxFit.contain,
+                            )
                           : Center(child: centerWidget ?? Container()),
                     ),
-                    Flexible (
+                    Flexible(
                         flex: 8,
-                        child: Column (
+                        child: Column(
                           children: [
                             widgetTitle ??
                                 Text(
@@ -865,7 +872,9 @@ class IntroSliderState extends State<IntroSlider>
                                   overflow: TextOverflow.ellipsis,
                                 ),
                             Container(
-                              width: desktopActionButtonEnabled == true ? 450.0: 300,
+                              width: desktopActionButtonEnabled == true
+                                  ? 450.0
+                                  : 300,
                               margin: marginDescription ??
                                   const EdgeInsets.only(top: 8.0),
                               child: widgetDescription ??
@@ -883,82 +892,101 @@ class IntroSliderState extends State<IntroSlider>
                                   ),
                             )
                           ],
-                        )
-
-                    ),
-                    desktopActionButtonEnabled == true ?
-                    Flexible(
-                      flex: 4,
-                      child: Container(
-                          decoration: isChecked ||  btnTitle != 'Get Started'? BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            color: Color(0xffC24DF8),
-                            border: Border.all(width: 1.0, color: Color(0xffC24DF8)),
-                          ): BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                            color: Color(0x66C24DF8),
-                            border: Border.all(width: 1.0, color: Color(0x66C24DF8)),
-                          ),
-                          width: 120,
-                          height: 30,
-                          child: TextButton(
-                              onPressed: () {
-                                handleClicked(btnTitle);
-                              },
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.transparent)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    child: Text(btnTitle,
-                                        style: TextStyle(
-                                            fontSize: 17.0,
-                                            fontFamily: 'MontserratLight',
-                                            color: Color(0xff000000)
-                                        )),
-                                  ),
-                                ],
-                              ))
-                      ),
-                    ) :
-                    Flexible(
-                        flex: 3,
-                        key: Key('$isChecked'),
-                        child: Container(
-                          decoration:  BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                            border: isChecked ||  btnTitle != 'Get Started'? Border(
-                              top: BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                              left:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                              right:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                              bottom:
-                              BorderSide(width: 1.0, color: Color(0xFFFDFAFA)),
-                            ): Border(
-                              top: BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
-                              left:
-                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
-                              right:
-                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
-                              bottom:
-                              BorderSide(width: 1.0, color: Color(0x66FDFAFA)),
-                            ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 0.0.h, horizontal: 8.0.w),
-                          margin: EdgeInsets.only(bottom: 16.0),
-                          height: 50.0,
-                          width: 110.0,
-                          child: getButton(btnTitle)
-                        )
-                    ),
+                        )),
+                    desktopActionButtonEnabled == true
+                        ? Flexible(
+                            flex: 4,
+                            child: Container(
+                                decoration:
+                                    isChecked || btnTitle != 'Get Started'
+                                        ? BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)),
+                                            color: Color(0xffC24DF8),
+                                            border: Border.all(
+                                                width: 1.0,
+                                                color: Color(0xffC24DF8)),
+                                          )
+                                        : BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)),
+                                            color: Color(0x66C24DF8),
+                                            border: Border.all(
+                                                width: 1.0,
+                                                color: Color(0x66C24DF8)),
+                                          ),
+                                width: 120,
+                                height: 30,
+                                child: TextButton(
+                                    onPressed: () {
+                                      handleClicked(btnTitle);
+                                    },
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.transparent)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(btnTitle,
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontFamily: 'MontserratLight',
+                                                  color: Color(0xff000000))),
+                                        ),
+                                      ],
+                                    ))),
+                          )
+                        : Flexible(
+                            flex: 3,
+                            key: Key('$isChecked'),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4.0)),
+                                  border: isChecked || btnTitle != 'Get Started'
+                                      ? Border(
+                                          top: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0xFFFDFAFA)),
+                                          left: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0xFFFDFAFA)),
+                                          right: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0xFFFDFAFA)),
+                                          bottom: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0xFFFDFAFA)),
+                                        )
+                                      : Border(
+                                          top: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0x66FDFAFA)),
+                                          left: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0x66FDFAFA)),
+                                          right: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0x66FDFAFA)),
+                                          bottom: BorderSide(
+                                              width: 1.0,
+                                              color: Color(0x66FDFAFA)),
+                                        ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 0.0.h, horizontal: 8.0.w),
+                                margin: EdgeInsets.only(bottom: 30.0),
+                                height: 50.0,
+                                width: 110.0,
+                                child: getButton(btnTitle))),
                   ],
                 ),
               );
             },
           );
-
         },
         childCount: 1,
       ),
@@ -969,32 +997,32 @@ class IntroSliderState extends State<IntroSlider>
       height: double.infinity,
       decoration: backgroundImage != null
           ? BoxDecoration(
-        color: Color(0xff1A1C2E),
-        image: DecorationImage(
-          image: AssetImage(backgroundImage),
-          fit: backgroundImageFit ?? BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            backgroundOpacityColor != null
-                ? backgroundOpacityColor
-                .withOpacity(backgroundOpacity ?? 0.5)
-                : Colors.black.withOpacity(backgroundOpacity ?? 0.5),
-            backgroundBlendMode ?? BlendMode.darken,
-          ),
-        ),
-      )
+              color: Color(0xff1A1C2E),
+              image: DecorationImage(
+                image: AssetImage(backgroundImage),
+                fit: backgroundImageFit ?? BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  backgroundOpacityColor != null
+                      ? backgroundOpacityColor
+                          .withOpacity(backgroundOpacity ?? 0.5)
+                      : Colors.black.withOpacity(backgroundOpacity ?? 0.5),
+                  backgroundBlendMode ?? BlendMode.darken,
+                ),
+              ),
+            )
           : BoxDecoration(
-        color: Color(0xff1A1C2E),
-        gradient: LinearGradient(
-          colors: backgroundColor != null
-              ? ([backgroundColor, backgroundColor])
-              : [
-            colorBegin ?? Colors.amberAccent,
-            colorEnd ?? Colors.amberAccent
-          ],
-          begin: directionColorBegin ?? Alignment.topLeft,
-          end: directionColorEnd ?? Alignment.bottomRight,
-        ),
-      ),
+              color: Color(0xff1A1C2E),
+              gradient: LinearGradient(
+                colors: backgroundColor != null
+                    ? ([backgroundColor, backgroundColor])
+                    : [
+                        colorBegin ?? Colors.amberAccent,
+                        colorEnd ?? Colors.amberAccent
+                      ],
+                begin: directionColorBegin ?? Alignment.topLeft,
+                end: directionColorEnd ?? Alignment.bottomRight,
+              ),
+            ),
       child: Container(
         color: Color(0xff1A1C2E),
         // margin: const EdgeInsets.only(bottom: 60.0),
