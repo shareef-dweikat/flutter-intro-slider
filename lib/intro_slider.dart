@@ -940,7 +940,7 @@ class IntroSliderState extends State<IntroSlider>
                                     ))),
                           )
                         : Flexible(
-                            flex: 3,
+                            flex: 4,
                             key: Key('$isChecked'),
                             child: Container(
                                 decoration: BoxDecoration(
@@ -978,9 +978,9 @@ class IntroSliderState extends State<IntroSlider>
                                 ),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 0.0.h, horizontal: 8.0.w),
-                                margin: EdgeInsets.only(bottom: 30.0),
+                                margin: EdgeInsets.only(bottom: 24.0),
                                 height: 50.0,
-                                width: 110.0,
+                                width: 120.0,
                                 child: getButton(btnTitle))),
                   ],
                 ),
